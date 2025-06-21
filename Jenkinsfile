@@ -6,9 +6,15 @@ pipeline {
                 sh 'echo hello world'
             }
         }
-        stage('Build') { 
+        stage('Build in Maven image') {
+            agent {
+                docker {
+                    image 'maven:3.8.6'
+                    args '-v /root/.m2:/root/.m2' // optional volume mount
+                }
+            }
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                sh 'mvn -B clean package -DskipTests'
             }
         }
     }
