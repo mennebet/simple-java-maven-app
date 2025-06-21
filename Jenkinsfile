@@ -3,9 +3,6 @@ pipeline {
 
     stages {
         stage('Echo') {
-            agent {
-                docker { image 'maven:3.8.6' }
-            }
             steps {
                 sh 'echo hello world'
             }
