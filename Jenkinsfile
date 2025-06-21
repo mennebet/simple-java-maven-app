@@ -1,12 +1,14 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven 3.8.6' // Use the name defined in Global Tool Configuration
-    }
     stages {
-        stage('Build') {
+        stage('Echo') { 
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'echo hello world'
+            }
+        }
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
             }
         }
     }
