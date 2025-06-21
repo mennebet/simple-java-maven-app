@@ -1,17 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.6'
-            args '-v /root/.m2:/root/.m2' // optional volume mount
-        }
-    }
+    agent none
+
     stages {
-        stage('Echo') { 
+        stage('Echo') {
+            agent {
+                docker { image 'maven:3.8.6' }
+            }
             steps {
                 sh 'echo hello world'
             }
         }
-        stage('Build in Maven image') {
+
+        stage('Build') {
+            agent {
+                docker { image 'maven:3.8.6' }
+            }
             steps {
                 sh 'mvn -B clean package -DskipTests'
             }
