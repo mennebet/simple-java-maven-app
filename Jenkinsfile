@@ -1,20 +1,9 @@
 pipeline {
     agent {
-        kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: maven:3.8.6
-    command:
-    - cat
-    tty: true
-"""
+        docker {
+            image 'maven:3.9.9-eclipse-temurin-21'
+            args '-v $HOME/.m2:/root/.m2'
         }
-    }
-
     stages {
         stage('Echo') {
             steps {
