@@ -1,25 +1,14 @@
 pipeline {
-    agent {
-        kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    image: maven:3.8.6
-    command:
-    - cat
-    tty: true
-"""
-        }
+    agent any
+
+    tools {
+        maven 'Maven3'
     }
+
     stages {
         stage('Build') {
             steps {
-                container('maven') {
-                    sh 'mvn -B -DskipTests clean package'
-                }
+                sh 'mvn -B -DskipTests clean package'
             }
         }
     }
